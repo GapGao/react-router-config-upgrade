@@ -35,13 +35,16 @@ cp index.js dist/
 
 cd dist
 
+// 发布release
 git init
 git add .
 git commit -m "Release version $next_version_v"
 git push -u http://gitlab.mokahr.com/ats-client/mage-router-config.git HEAD:release --force
+
+// 打版本号
 git tag $next_version_v
 git push
-git push -u http://gitlab.mokahr.com/ats-client/mage-router-config.git --tags --force
+git push http://gitlab.mokahr.com/ats-client/mage-router-config.git --tags
 
 cd -
 git checkout master
