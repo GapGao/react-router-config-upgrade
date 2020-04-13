@@ -33,32 +33,14 @@ cp package-lock.json dist/
 cp README.md dist/
 cp index.js dist/
 
+cd dist
+git init
 git add .
 git commit -m "Release version $next_version_v"
+git push -u http://gitlab.mokahr.com/ats-client/mage-router-config.git HEAD:release --force
+git tag $next_version_v
 git push
+git push -u http://gitlab.mokahr.com/ats-client/mage-router-config.git --tags --force
 
-# publish release branch
-git branch -D release
-git checkout release
-
-for f in `ls`;
-do
-  if [ "$f" != "dist" ] && [ "$f" != "node_modules" ]; then
-    rm -rf ./$f;
-  fi
-done
-
-for f in `ls dist`;
-do
-  mv ./dist/$f ./;
-done
-
-# rmdir dist
-# git add .
-# git commit -m "Release version $next_version_v"
-# git tag $next_version_v
-# git push
-# git push --tags
-
-# back to master branch
-# git checkout master
+cd -
+git checkout master
