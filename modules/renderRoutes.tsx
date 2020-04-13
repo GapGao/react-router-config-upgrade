@@ -22,16 +22,16 @@ function generateRoute(route: RouteConfig): RouteConfig {
   const parentPaths: string[] = Array.isArray(parentRoute.path)
     ? parentRoute.path
     : parentRoute.path
-      ? [parentRoute.path]
-      : [];
+    ? [parentRoute.path]
+    : [];
 
   if (parentRoute.routes) {
     parentRoute.routes = parentRoute.routes.map((childRoute) => {
       const childrenPaths: string[] = Array.isArray(childRoute.path)
         ? childRoute.path
         : childRoute.path
-          ? [childRoute.path]
-          : [];
+        ? [childRoute.path]
+        : [];
 
       const resultPaths: string[] = [];
 

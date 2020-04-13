@@ -1,6 +1,5 @@
 import * as React from "react";
 import { RouteComponentProps, match } from "react-router";
-import { RouteProps } from "react-router-dom";
 
 import { Location, LocationDescriptor } from "history";
 

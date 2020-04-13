@@ -12,7 +12,7 @@ export default [
   {
     input: "modules/index.ts",
     output: {
-      file: `cjs/${pkg.name}.js`,
+      file: `dist/cjs/${pkg.name}.js`,
       sourcemap: true,
       format: "cjs",
       esModule: false,
@@ -33,7 +33,7 @@ export default [
     // prod
     input: "modules/index.ts",
     output: {
-      file: `cjs/${pkg.name}.min.js`,
+      file: `dist/cjs/${pkg.name}.min.js`,
       sourcemap: true,
       format: "cjs",
     },

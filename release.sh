@@ -31,6 +31,7 @@ npm run build
 cp package.json dist/
 cp package-lock.json dist/
 cp README.md dist/
+cp index.js dist/
 
 git add .
 git commit -m "Release version $next_version_v"
