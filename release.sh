@@ -34,6 +34,7 @@ cp README.md dist/
 cp index.js dist/
 
 cd dist
+
 git init
 git add .
 git commit -m "Release version $next_version_v"
