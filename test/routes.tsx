@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter, Link } from "react-router-dom";
-import { renderRoutes, RouteConfig } from "../../modules";
+import {
+  renderRoutes,
+  matchRoutes,
+  RouteConfig,
+  MatchedRoute,
+} from "../modules";
 
 function App(props: React.PropsWithChildren<any>): JSX.Element {
   const { route } = props;
@@ -63,5 +68,15 @@ const routes: RouteConfig[] = [
     ],
   },
 ];
+
+const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, "/demo/demo2");
+// using the routes shown earlier, this returns
+// [
+//   routes[0],
+//   routes[0].routes[0]
+//   routes[0].routes[0].routes[0]
+// ]
+
+// pass this into ReactDOM.render
 
 export default <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>;

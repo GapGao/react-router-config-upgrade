@@ -8,7 +8,7 @@ import { DEFAULT_EXTENSIONS } from "@babel/core";
 
 export default [
   {
-    input: "test/src/index.tsx",
+    input: "test/index.tsx",
     output: {
       file: `test/dist/index.js`,
       sourcemap: true,
@@ -17,31 +17,32 @@ export default [
       format: "umd",
     },
     watch: {
-      include: "test/src/**",
+      include: "test/**.tsx",
     },
     plugins: [
       typescript(),
-      nodeResolve({ exclude: /node_modules/ }),
       babel({
         exclude: /node_modules/,
         extensions: [...DEFAULT_EXTENSIONS, ".ts", ".tsx"],
         sourceMaps: true,
         rootMode: "upward",
       }),
-      replace({
-        "process.env.NODE_ENV": JSON.stringify("development"),
-      }),
+      nodeResolve(),
       commonjs({
         namedExports: {
           "node_modules/react/index.js": ["Component"],
           "node_modules/react-is/index.js": ["isValidElementType"],
         },
       }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("development"),
+      }),
       liveServer({
         open: true,
         host: "localhost",
         port: 10010,
-        root: "test/dist",
+        root: "test",
+        ignore: "*.tsx",
       }),
     ],
   },
