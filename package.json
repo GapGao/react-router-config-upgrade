@@ -1,6 +1,6 @@
 {
   "name": "mage-router-config",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Static route config matching for React Router",
   "main": "index.js",
   "repository": {

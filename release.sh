@@ -47,4 +47,6 @@ git push
 git push http://gitlab.mokahr.com/ats-client/mage-router-config.git --tags
 
 cd -
-git checkout master
+git add .
+git commit -m "Release version $next_version_v"
+git push
