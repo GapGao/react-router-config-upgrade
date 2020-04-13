@@ -53,12 +53,12 @@ do
   mv ./dist/$f ./;
 done
 
-rmdir dist
-git add .
-git commit -m "Release version $next_version_v"
-git tag $next_version_v
-git push
-git push --tags
+# rmdir dist
+# git add .
+# git commit -m "Release version $next_version_v"
+# git tag $next_version_v
+# git push
+# git push --tags
 
 # back to master branch
-git checkout master
+# git checkout master
