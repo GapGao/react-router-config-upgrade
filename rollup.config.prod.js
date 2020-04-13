@@ -5,7 +5,7 @@ import typescript from "rollup-plugin-typescript2";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 const pkg = require("./package.json");
 
-const external = ["react", "react-router"];
+const external = ["react", "react-router", "react-router-dom"];
 
 export default [
   // dev
