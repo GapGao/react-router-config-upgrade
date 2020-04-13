@@ -2,7 +2,7 @@
 
 ## 安装
 
-\$ npm install git@gitlab.mokahr.com:ats-client/mage-router-config.git
+`$ npm install git@gitlab.mokahr.com:ats-client/mage-router-config.git`
 
 ## 使用
 
