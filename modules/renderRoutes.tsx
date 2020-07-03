@@ -1,7 +1,10 @@
 import React from "react";
 import { Switch, Route, SwitchProps } from "react-router";
 import { RouteComponentProps, Redirect } from "react-router-dom";
-import { RouteConfig } from "./types";
+import { LocationDescriptor } from "history";
+import { RouteConfig, RedirectFunction } from "./types";
+
+import getQueryParamFromLocation from "./query";
 
 /**
  * 如果path 以/结尾 或根路由就是 /，那么如果直接拼接
@@ -14,6 +17,14 @@ function formatPath(path: string): string {
   } else {
     return path;
   }
+}
+
+/**
+ * 判断是否为一个function
+ * @param fn
+ */
+function isFunction(fn: LocationDescriptor | Function): boolean {
+  return Object.prototype.toString.call(fn) === "[object Function]";
 }
 
 function generateRoute(route: RouteConfig): RouteConfig {
@@ -88,22 +99,48 @@ function renderRoutes(
             location={location}
             {...others}
             render={(props: RouteComponentProps) => {
+              const extendedProps = {
+                ...props,
+                location: {
+                  ...props.location,
+                  query: getQueryParamFromLocation(
+                    props.location || { search: "" }
+                  ),
+                },
+                route,
+              };
+
               if (redirect) {
                 // 重定向 这里的redirect 应该是 完全路径
                 // 因为 在 上级 path是[]时
                 // redirect 应该重定向到数组里的哪个父路由下 其实是比较难确定的
                 // 且如果 由 此层路由 跳往 它层路由 也是实现不了的 故而 是个 完全路径
-                return <Redirect to={redirect} />;
+                let to: LocationDescriptor = "";
+                if (isFunction(redirect)) {
+                  to = (redirect as RedirectFunction)({
+                    ...extraProps,
+                    ...extendedProps,
+                  });
+                } else {
+                  to = redirect as LocationDescriptor;
+                }
+                return (
+                  // 加了switch 才能在 Route 下 的 Redirect 能传递params
+                  <Switch>
+                    <Redirect from={props.match.path} to={to} />
+                  </Switch>
+                );
               } else if (Component) {
+                const { location } = props;
                 if (React.Suspense && fallback) {
                   // 如果是 lazyload 组件 需要给出fallback参数以生效lazy效果
                   return (
                     <React.Suspense fallback={fallback || <div>loading</div>}>
-                      <Component {...props} {...extraProps} route={route} />
+                      <Component {...extraProps} {...extendedProps} />
                     </React.Suspense>
                   );
                 } else {
-                  return <Component {...props} {...extraProps} route={route} />;
+                  return <Component {...extraProps} {...extendedProps} />;
                 }
               } else if (render) {
                 if (React.Suspense && fallback) {
@@ -111,17 +148,15 @@ function renderRoutes(
                   return (
                     <React.Suspense fallback={fallback || <div>loading</div>}>
                       {render({
-                        ...props,
                         ...extraProps,
-                        route,
+                        ...extendedProps,
                       })}
                     </React.Suspense>
                   );
                 } else {
                   return render({
-                    ...props,
                     ...extraProps,
-                    route,
+                    ...extendedProps,
                   });
                 }
               }

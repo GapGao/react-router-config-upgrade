@@ -19,7 +19,16 @@ export default [
     },
     external,
     plugins: [
-      typescript(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+        tsconfigOverride: {
+          compilerOptions: {
+            declaration: true,
+            declarationDir: "dist/types",
+          },
+          include: ["modules/**/*.ts", "modules/**/*.tsx"],
+        },
+      }),
       babel({
         exclude: /node_modules/,
         extensions: [...DEFAULT_EXTENSIONS, ".ts", ".tsx"],

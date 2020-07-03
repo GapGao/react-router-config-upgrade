@@ -17,7 +17,7 @@ export default [
       format: "umd",
     },
     watch: {
-      include: "test/**.tsx",
+      include: ["test/**.tsx", "modules/**.tsx", "modules/**.ts"],
     },
     plugins: [
       typescript(),

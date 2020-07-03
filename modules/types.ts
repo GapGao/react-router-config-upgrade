@@ -9,6 +9,10 @@ export interface RouteConfigComponentProps<
   route?: RouteConfig;
 }
 
+export type RedirectFunction = (
+  props: RouteConfigComponentProps<any>
+) => LocationDescriptor;
+
 export interface RouteConfig {
   key?: React.Key;
   location?: Location;
@@ -16,7 +20,7 @@ export interface RouteConfig {
     | React.ComponentType<RouteConfigComponentProps<any>>
     | React.ComponentType;
   path?: string | string[];
-  redirect?: LocationDescriptor;
+  redirect?: LocationDescriptor | RedirectFunction;
   exact?: boolean;
   strict?: boolean;
   sensitive?: boolean;
