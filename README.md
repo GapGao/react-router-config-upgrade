@@ -1,4 +1,4 @@
-# 适用于 mage 的 React Router Config
+# React Router Config 升级版
 
 ## 当前版本
 
@@ -12,10 +12,10 @@ current version: v0.0.1
 
 ```js
 // using an ES6 transpiler, like babel
-import { matchRoutes, renderRoutes } from "mage-react-router";
+import { matchRoutes, renderRoutes } from "gap-react-router";
 
 // not using an ES6 transpiler
-var matchRoutes = require("react-router-config").matchRoutes;
+var matchRoutes = require("gap-router-config").matchRoutes;
 ```
 
 ## query
@@ -32,7 +32,7 @@ var matchRoutes = require("react-router-config").matchRoutes;
 例如
 
 ```js
-import { Link, withRouter } from "mage-react-router";
+import { Link, withRouter } from "gap-react-router";
 ```
 
 ## Route 配置 直接上 types
