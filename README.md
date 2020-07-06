@@ -1,21 +1,21 @@
-# React Router Config 升级版
+# 适用于 mage 的 React Router Config
 
 ## 当前版本
 
-current version: v0.0.1
+current version: v0.0.9
 
 ## 安装
 
-`$ npm install git+https://github.com/GapGao/gap-react-router.git#v0.0.1`
+`$ npm install git+ssh://git@gitlab.mokahr.com:ats-client/mage-react-router.git#current version`
 
 ## 使用
 
 ```js
 // using an ES6 transpiler, like babel
-import { matchRoutes, renderRoutes } from "gap-react-router";
+import { matchRoutes, renderRoutes } from "mage-react-router";
 
 // not using an ES6 transpiler
-var matchRoutes = require("gap-router-config").matchRoutes;
+var matchRoutes = require("mage-router-config").matchRoutes;
 ```
 
 ## query
@@ -32,7 +32,7 @@ var matchRoutes = require("gap-router-config").matchRoutes;
 例如
 
 ```js
-import { Link, withRouter } from "gap-react-router";
+import { Link, withRouter } from "mage-react-router";
 ```
 
 ## Route 配置 直接上 types
@@ -86,6 +86,12 @@ const routes: RouteConfig[] = [
             component: Demo2,
             exact: true,
           },
+          /**
+           *  params 可传递 并且 原理是 以 path 取出 所有 params
+           * 替换掉 redirect 对应的 params 生成新的 path之后，
+           * 再去 match route 甚至 可以混搭 redirect = "/demo/:id/:id"，
+           * 只要有可以 match 的 route 即可传递id 也可传递多个不同的id
+           */
           {
             path: "/demo3/:aid/:bid",
             redirect: "/demo6/:bid/demo7/:aid/:bid",
@@ -93,10 +99,9 @@ const routes: RouteConfig[] = [
           },
           {
             path: "/demo5/:aid/:bid",
-            // redirect 可以写string 或 function return string 即 pathname 或 return object
-            // params 可传递 并且 原理是 以path取出 所有params 替换掉 redirect 对应的 params 生成新的 path之后
-            // 再去 match route 甚至 可以混搭 redirect = "/demo/:id/:id"
-            // 只要有可以 match 的 route 即可传递id 也可传递多个不同的id
+            /** redirect 可以写string 或 function return string
+             * 即 pathname 或 return object
+             */
             // redirect: ({ location: { search } }) => ({
             //   pathname: "/demo6/:aid/demo7/:aid/:bid",
             //   search,
@@ -119,12 +124,38 @@ const routes: RouteConfig[] = [
 需要说明的是
 
 1. 我们对于 react-router 的 path 做了些优化，我们会自动计算出当前 path，即 `parentPath + childPath` ，故不要给出完整路由，**path 只需给出后半部分路由即可 即相对路由但是需要有前缀/**。
-2. 对于可选的 路由中的某部分，可以使用数组 path，例`['/a/b', '/a']`；也可以使用正则表达式，例`'/a/b?'`。
+2. 对于可选的 路由中的某部分，可以使用数组 path，例`['/a/b', '/a']`；也可以使用正则表达式，例`'/a/b?'`，但是建议使用数组，因为对于正则的使用方法还不是很清晰。
 3. redirect 参数不会自动计算，因为可能需要跨层级重定向，如果自动计算则会限制在本层内，所以**redirect 要给出绝对完整路径**。
 4. redirect 可以传递 params，见上述 demo。
-5. redirect 可以传入 string 和 return string 或 {} 的 function。
 
-6. fallback 参数代表，此组件（component）默认为懒加载组件`React.lazy(() => import('xxx'))`，会以`React.Suspense`进行包裹，以 fallback 为降级组件传入，并返回。
+   ```javascript
+    {
+      path: "/demo3/:aid/:bid",
+      redirect: "/demo6/:bid/demo7/:aid/:bid",
+      exact: true,
+    },
+   ```
+
+5. redirect 可以传入 string 、 {} 和 return string 或 {} 的 function。
+
+   ```javascript
+    // 1 string
+    redirect: "/demo6/:aid/demo7/:aid/:bid",
+    // 2 object
+    redirect: {
+      pathname: "/demo6/:aid/demo7/:aid/:bid",
+      search,
+    },
+    // 3 function return object
+    redirect: ({ location: { search } }) => "/demo6/:aid/demo7/:aid/:bid",
+    // 4 function return object
+    redirect: ({ location: { search } }) => ({
+      pathname: "/demo6/:aid/demo7/:aid/:bid",
+      search,
+    }),
+   ```
+
+6. fallback 参数代表，此组件（component）默认为懒加载组件`React.lazy(() => import('xxx'))`，会以`React.Suspense`进行包裹，以 `fallback`（默认为`<div>loading</div>`） 为降级组件传入，并返回。
 7. 其他字段请查看[react-router 官方文档](https://reacttraining.com/react-router/web/guides/quick-start)
 
 ## API
