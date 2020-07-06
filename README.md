@@ -2,7 +2,7 @@
 
 ## 当前版本
 
-current version: v0.0.9
+current version: v0.0.1
 
 ## 安装
 
