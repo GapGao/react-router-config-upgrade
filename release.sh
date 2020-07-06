@@ -39,12 +39,12 @@ cd dist
 git init
 git add .
 git commit -m "Release version $next_version_v"
-git push -u git@github.com:GapGao/gap-react-router.git HEAD:release --force
+git push -u git@github.com:GapGao/react-router-config-upgrade.git HEAD:release --force
 
 # 打版本号
 git tag $next_version_v
 git push
-git push git@github.com:GapGao/gap-react-router.git --tags
+git push git@github.com:GapGao/react-router-config-upgrade.git --tags
 
 cd -
 rm -rf dist

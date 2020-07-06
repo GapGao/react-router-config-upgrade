@@ -1,12 +1,12 @@
 {
-  "name": "gap-react-router",
+  "name": "react-router-config-upgrade",
   "version": "0.0.1",
   "description": "Static route config matching for React Router",
   "main": "index.js",
   "types": "types/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GapGao/gap-react-router.git"
+    "url": "https://github.com/GapGao/react-router-config-upgrade.git"
   },
   "scripts": {
     "dev": "rollup --config rollup.config.dev.js --watch",
