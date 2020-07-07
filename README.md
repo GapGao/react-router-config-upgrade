@@ -1,4 +1,4 @@
-# 适用于 mage 的 React Router Config
+# React Router Config升级版
 
 ## 当前版本
 
@@ -6,16 +6,16 @@ current version: v0.0.1
 
 ## 安装
 
-`$ npm install git+ssh://git@gitlab.mokahr.com:ats-client/mage-react-router.git#current version`
+`$ npm install git+https://github.com/GapGao/react-router-config-upgrade.git#current version`
 
 ## 使用
 
 ```js
 // using an ES6 transpiler, like babel
-import { matchRoutes, renderRoutes } from "mage-react-router";
+import { matchRoutes, renderRoutes } from "react-router-config-upgrade";
 
 // not using an ES6 transpiler
-var matchRoutes = require("mage-router-config").matchRoutes;
+var matchRoutes = require("react-router-config-upgrade").matchRoutes;
 ```
 
 ## query
@@ -32,7 +32,7 @@ var matchRoutes = require("mage-router-config").matchRoutes;
 例如
 
 ```js
-import { Link, withRouter } from "mage-react-router";
+import { Link, withRouter } from "react-router-config-upgrade";
 ```
 
 ## Route 配置 直接上 types
