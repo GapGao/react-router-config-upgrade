@@ -20,7 +20,7 @@
     "react-router-dom": ">=5"
   },
   "dependencies": {
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "react-router": "5.1.2",
     "react-router-dom": "5.1.2"
   },
